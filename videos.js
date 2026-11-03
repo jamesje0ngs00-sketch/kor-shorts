@@ -10,6 +10,7 @@ window.VIDEOS = [
   "items": "8~13",
   "author": null,
   "work": null,
+  "date": "2026-11-03",
   "order": 0
  },
  {
@@ -21,9 +22,11 @@ window.VIDEOS = [
   "source": null,
   "exam": null,
   "items": null,
-  "author": null,
+  "author": "작자 미상",
   "work": "운영전",
   "era": "고전",
+  "question": "궁녀에게 사랑은 왜 ‘죄’가 되었을까?",
+  "date": "2026-11-02",
   "order": 1
  },
  {
@@ -38,6 +41,8 @@ window.VIDEOS = [
   "author": "양귀자",
   "work": "비 오는 날이면 가리봉동에 가야 한다",
   "era": "현대",
+  "question": "비 오는 날, 임 씨는 왜 ‘가리봉동’에 가야 할까?",
+  "date": "2026-10-29",
   "order": 2
  },
  {
@@ -52,6 +57,8 @@ window.VIDEOS = [
   "author": "채만식",
   "work": "태평천하",
   "era": "현대",
+  "question": "그는 왜 이 시대를 ‘태평천하’라 했을까?",
+  "date": "2026-10-24",
   "order": 3
  },
  {
@@ -65,6 +72,7 @@ window.VIDEOS = [
   "items": "14~17",
   "author": null,
   "work": null,
+  "date": "2026-10-22",
   "order": 4
  },
  {
@@ -79,6 +87,8 @@ window.VIDEOS = [
   "author": "이태준",
   "work": "복덕방",
   "era": "현대",
+  "question": "노인들은 왜 ‘복덕방’에 모였을까?",
+  "date": "2026-10-22",
   "order": 5
  },
  {
@@ -92,6 +102,7 @@ window.VIDEOS = [
   "items": "12~17",
   "author": null,
   "work": null,
+  "date": "2026-10-21",
   "order": 6
  },
  {
@@ -105,6 +116,7 @@ window.VIDEOS = [
   "items": "14~17",
   "author": null,
   "work": null,
+  "date": "2026-10-21",
   "order": 7
  },
  {
@@ -118,6 +130,7 @@ window.VIDEOS = [
   "items": "14~17",
   "author": null,
   "work": null,
+  "date": "2026-10-21",
   "order": 8
  },
  {
@@ -131,6 +144,7 @@ window.VIDEOS = [
   "items": "17~20",
   "author": null,
   "work": null,
+  "date": "2026-10-21",
   "order": 9
  },
  {
@@ -144,6 +158,7 @@ window.VIDEOS = [
   "items": "17~20",
   "author": null,
   "work": null,
+  "date": "2026-10-21",
   "order": 10
  },
  {
@@ -157,6 +172,7 @@ window.VIDEOS = [
   "items": "21~23",
   "author": null,
   "work": null,
+  "date": "2026-10-20",
   "order": 11
  },
  {
@@ -170,6 +186,7 @@ window.VIDEOS = [
   "items": "21~23",
   "author": null,
   "work": null,
+  "date": "2026-10-20",
   "order": 12
  },
  {
@@ -183,6 +200,7 @@ window.VIDEOS = [
   "items": "14~17",
   "author": null,
   "work": null,
+  "date": "2026-10-20",
   "order": 13
  },
  {
@@ -196,6 +214,7 @@ window.VIDEOS = [
   "items": "14~17",
   "author": null,
   "work": null,
+  "date": "2026-10-20",
   "order": 14
  },
  {
@@ -209,6 +228,7 @@ window.VIDEOS = [
   "items": "14~17",
   "author": null,
   "work": null,
+  "date": "2026-10-19",
   "order": 15
  },
  {
@@ -222,6 +242,7 @@ window.VIDEOS = [
   "items": "14~17",
   "author": null,
   "work": null,
+  "date": "2026-10-19",
   "order": 16
  },
  {
@@ -235,6 +256,7 @@ window.VIDEOS = [
   "items": "14~17",
   "author": null,
   "work": null,
+  "date": "2026-10-19",
   "order": 17
  },
  {
@@ -249,6 +271,8 @@ window.VIDEOS = [
   "author": "김시습",
   "work": "만복사저포기",
   "era": "고전",
+  "question": "산 사람과 죽은 이의 사랑, 왜 ‘전기’ 소설일까?",
+  "date": "2026-10-16",
   "order": 18
  },
  {
@@ -263,6 +287,8 @@ window.VIDEOS = [
   "author": "염상섭",
   "work": "만세전",
   "era": "현대",
+  "question": "왜 그는 조선을 ‘무덤’이라 불렀을까?",
+  "date": "2026-10-16",
   "order": 19
  },
  {
@@ -276,7 +302,10 @@ window.VIDEOS = [
   "items": null,
   "author": "이태준",
   "work": "복덕방",
+  "hidden": true,
   "era": "현대",
+  "question": "노인들은 왜 ‘복덕방’에 모였을까?",
+  "date": "2026-10-14",
   "order": 20
  },
  {
@@ -292,6 +321,8 @@ window.VIDEOS = [
   "work": "강로전",
   "hidden": true,
   "era": "고전",
+  "question": null,
+  "date": "2026-07-20",
   "order": 21
  },
  {
@@ -306,6 +337,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "hidden": true,
+  "date": "2026-07-14",
   "order": 22
  }
 ];

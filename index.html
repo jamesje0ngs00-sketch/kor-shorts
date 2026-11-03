@@ -8,76 +8,96 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
   :root {
-    --bg: #f4efe6; --card: #fffdf8; --ink: #1f2a44; --sub: #6b6458; --line: #e2d9c8;
-    --accent: #c8432b; --chip: #ece4d4; --chip-on: #1f2a44; --chip-on-ink: #fff;
-    --lit: #3f6f5a; --sci: #3f6fa0; --eco: #b0772a; --soc: #7a5aa0;
+    --bg: #f6f2ea; --ink: #18213a; --sub: #6b6458; --line: #e2d9c8; --navy: #18213a; --red: #d8432a;
+    --chip: #ebe4d6; --chip-on: #18213a; --chip-on-ink: #fff; --field: #fffdf8;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #171a21; --card: #1f2430; --ink: #eef0f5; --sub: #a3a9b7; --line: #2e3442;
-      --chip: #2a303d; --chip-on: #eef0f5; --chip-on-ink: #171a21; --accent: #f0735c; }
+    :root { --bg: #12151c; --ink: #eef0f5; --sub: #a3a9b7; --line: #2a303d; --navy: #0b0e14;
+      --chip: #232937; --chip-on: #eef0f5; --chip-on-ink: #12151c; --field: #1b202b; --red: #f0634a; }
   }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Pretendard Variable", Pretendard, system-ui, sans-serif;
     letter-spacing: -0.01em; }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px 48px; }
-  header { padding: 28px 0 8px; }
-  h1 { margin: 0; font-size: clamp(28px, 6vw, 40px); font-weight: 900; letter-spacing: -0.03em; }
-  h1 b { color: var(--accent); }
-  .lead { margin: 8px 0 0; color: var(--sub); font-size: 15px; line-height: 1.5; }
-  .lead a { color: inherit; }
-  .bar { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 14px 0 10px; border-bottom: 1px solid var(--line); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+  /* 머리: 채널 표지처럼 남색 띠 + 굵은 제목 */
+  header { background: var(--navy); color: #fff; }
+  header .wrap { padding-top: 34px; padding-bottom: 30px; }
+  .kicker { display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: .04em; color: #fff; background: var(--red);
+    padding: 4px 10px; border-radius: 6px; }
+  h1 { margin: 12px 0 0; font-size: clamp(34px, 8vw, 60px); font-weight: 900; letter-spacing: -0.04em; line-height: 1.05; }
+  h1 b { color: var(--red); }
+  .lead { margin: 12px 0 0; color: #c9cfdc; font-size: 15px; line-height: 1.55; max-width: 560px; word-break: keep-all; }
+  .go { display: inline-block; margin-top: 16px; color: #fff; text-decoration: none; font-weight: 700; font-size: 14px;
+    border: 1.5px solid rgba(255,255,255,.5); padding: 8px 14px; border-radius: 999px; }
+  .go:hover { background: rgba(255,255,255,.1); }
+
+  /* 거르는 줄 */
+  .bar { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 14px 0 12px; border-bottom: 1px solid var(--line); }
   @media (max-width: 600px) { .bar { position: static; } }
-  .tabs { display: flex; gap: 6px; background: var(--chip); padding: 4px; border-radius: 14px; width: fit-content; max-width: 100%; }
-  .tabs button { border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 16px; font-weight: 700;
+  .tabs { display: flex; gap: 4px; background: var(--chip); padding: 4px; border-radius: 14px; width: fit-content; max-width: 100%; }
+  .tabs button { border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 16px; font-weight: 800;
     padding: 9px 16px; border-radius: 10px; cursor: pointer; white-space: nowrap; }
   .tabs button[aria-pressed="true"] { background: var(--chip-on); color: var(--chip-on-ink); }
-  .tabs small { font-weight: 500; opacity: .7; margin-left: 4px; }
+  .tabs small { font-weight: 500; opacity: .65; margin-left: 4px; }
   .row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; align-items: center; }
-  .chip { border: 1px solid var(--line); background: var(--card); color: var(--ink); font: inherit; font-size: 14px; font-weight: 600;
-    padding: 7px 13px; border-radius: 999px; cursor: pointer; }
-  .chip[aria-pressed="true"] { background: var(--chip-on); color: var(--chip-on-ink); border-color: var(--chip-on); }
-  select, input[type=search] { font: inherit; font-size: 15px; color: var(--ink); background: var(--card); border: 1px solid var(--line);
+  /* 폰에서는 하위 분류가 줄바꿈 없이 옆으로 밀린다 */
+  .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-left: -16px; margin-right: -16px; padding: 0 16px; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: none; border: 0; background: var(--chip); color: var(--ink); font: inherit; font-size: 14px; font-weight: 700;
+    padding: 8px 14px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
+  .chip[aria-pressed="true"] { background: var(--red); color: #fff; }
+  select, input[type=search] { font: inherit; font-size: 15px; color: var(--ink); background: var(--field); border: 1px solid var(--line);
     border-radius: 10px; padding: 9px 12px; min-width: 0; }
   input[type=search] { flex: 1 1 200px; }
   select { flex: 0 1 260px; }
-  .count { color: var(--sub); font-size: 14px; margin: 16px 0 6px; }
-  .group { margin-top: 22px; }
-  .group h2 { font-size: 16px; font-weight: 800; margin: 0 0 10px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+
+  .count { color: var(--sub); font-size: 14px; margin: 18px 0 8px; }
+  main { padding-bottom: 20px; }
+  .group { margin-top: 26px; }
+  .group h2 { font-size: 18px; font-weight: 900; margin: 0 0 12px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
   .group h2 span { color: var(--sub); font-weight: 600; font-size: 14px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
-  @media (min-width: 720px) { .grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 18px; } }
-  .card { display: block; text-decoration: none; color: inherit; background: var(--card); border-radius: 14px; overflow: hidden;
-    border: 1px solid var(--line); transition: transform .15s ease, box-shadow .15s ease; }
-  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.12); }
-  .card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-  .thumb { aspect-ratio: 9 / 16; background: var(--chip); }
+
+  /* 카드: 테두리 없이 표지를 크게 */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 14px; }
+  @media (min-width: 720px) { .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 30px 20px; } }
+  .card { display: block; text-decoration: none; color: inherit; }
+  .card:focus-visible { outline: 3px solid var(--red); outline-offset: 4px; border-radius: 16px; }
+  .thumb { position: relative; aspect-ratio: 9 / 16; background: var(--chip); border-radius: 14px; overflow: hidden;
+    box-shadow: 0 6px 18px rgba(24,33,58,.18); transition: transform .18s ease, box-shadow .18s ease; }
+  .card:hover .thumb { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(24,33,58,.26); }
   .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .body { padding: 10px 11px 12px; }
-  .tag { display: inline-block; font-size: 12px; font-weight: 800; padding: 3px 8px; border-radius: 6px; color: #fff; background: var(--sub); }
-  .tag.문학, .tag.현대 { background: var(--lit); } .tag.고전 { background: #8a5a3c; } .tag.과학 { background: var(--sci); } .tag.경제 { background: var(--eco); } .tag.사회 { background: var(--soc); }
-  .t { margin: 7px 0 4px; font-size: 15px; font-weight: 700; line-height: 1.35;
-    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
-  .m { font-size: 13px; color: var(--sub); line-height: 1.4; word-break: keep-all; }
+  .new { position: absolute; top: 10px; left: 10px; background: var(--red); color: #fff; font-size: 12px; font-weight: 900;
+    letter-spacing: .06em; padding: 4px 8px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,.25); }
+  .tag { display: block; margin-top: 11px; font-size: 13px; font-weight: 800; color: var(--red); }
+  .t { margin: 3px 0 0; font-size: 17px; font-weight: 800; line-height: 1.3; letter-spacing: -0.02em;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
+  .qn { margin: 5px 0 0; font-size: 14px; line-height: 1.4; color: var(--ink); opacity: .85; word-break: keep-all;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .m { margin: 4px 0 0; font-size: 13px; color: var(--sub); line-height: 1.4; word-break: keep-all; }
   .empty { padding: 40px 0; text-align: center; color: var(--sub); }
-  footer { margin-top: 40px; color: var(--sub); font-size: 13px; text-align: center; }
+  footer { margin: 30px 0 40px; color: var(--sub); font-size: 13px; text-align: center; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
+<header>
+  <div class="wrap">
+    <span class="kicker">수능 국어 · 쇼츠</span>
     <h1>국어 <b>쇼츠</b> 모음</h1>
-    <p class="lead">문학 작품과 수능·모의고사 비문학 지문을 짧은 영상으로 정리했어요. 카드를 누르면 유튜브에서 볼 수 있어요.
-      · <a href="https://www.youtube.com/@블랙락-u2v/shorts" target="_blank" rel="noopener">채널 바로가기</a></p>
-  </header>
+    <p class="lead">문학 작품과 수능·모의고사 비문학 지문을 2분 안팎의 영상으로 정리했어요. 표지를 누르면 유튜브에서 볼 수 있어요.</p>
+    <a class="go" href="https://www.youtube.com/@블랙락-u2v/shorts" target="_blank" rel="noopener">유튜브 채널 바로가기 →</a>
+  </div>
+</header>
 
+<div class="wrap">
   <div class="bar">
     <div class="tabs" role="group" aria-label="갈래">
       <button data-type="all" aria-pressed="true">전체<small id="n-all"></small></button>
       <button data-type="문학" aria-pressed="false">문학<small id="n-lit"></small></button>
       <button data-type="비문학" aria-pressed="false">비문학<small id="n-non"></small></button>
     </div>
-    <div class="row" id="fields" role="group" aria-label="세부 분류"></div>
+    <div class="row chips" id="fields" role="group" aria-label="세부 분류"></div>
     <div class="row" id="sortrow"><select id="sort" aria-label="정렬"><option value="order">올린 순서</option><option value="group">지문별로 묶기</option></select></div>
     <div class="row">
       <select id="exam" aria-label="시험"></select>
@@ -96,6 +116,8 @@ const V = (window.VIDEOS || []).filter((v) => !v.hidden).sort((a, b) => a.order 
 const $ = (s) => document.querySelector(s);
 const state = { type: "all", sub: null, exam: "", q: "", sort: "order" };
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+// 올린 지 7일 안 = 새로 올라옴
+const isNew = (d) => d && (Date.now() - new Date(d + "T00:00:00+09:00")) < 7 * 864e5;
 
 $("#n-all").textContent = V.length;
 $("#n-lit").textContent = V.filter((v) => v.type === "문학").length;
@@ -103,8 +125,8 @@ $("#n-non").textContent = V.filter((v) => v.type === "비문학").length;
 
 // 갈래별 하위 버튼: 문학 = 현대·고전, 비문학 = 분야
 const SUBS = {
-  "문학": { key: "era", all: "현대·고전 전체", items: ["현대", "고전"] },
-  "비문학": { key: "field", all: "분야 전체", items: [...new Set(V.filter((v) => v.field).map((v) => v.field))] },
+  "문학": { key: "era", all: "전체", items: ["현대", "고전"] },
+  "비문학": { key: "field", all: "전체", items: [...new Set(V.filter((v) => v.field).map((v) => v.field))] },
 };
 function drawSubs() {
   const s = SUBS[state.type];
@@ -120,14 +142,16 @@ const exams = [...new Set(V.filter((v) => v.exam).map((v) => v.exam))];
 $("#exam").innerHTML = '<option value="">시험 전체</option>' + exams.map((e) => `<option>${esc(e)}</option>`).join("");
 
 function card(v) {
-  const tag = v.type === "문학" ? (v.era || "문학") : (v.field || "비문학");
-  const meta = v.type === "문학" ? (v.author || "") : [v.exam, v.items && `${v.items}번`].filter(Boolean).join(" · ");
+  const lit = v.type === "문학";
+  const tag = lit ? `${v.era ? v.era + " " : ""}문학` : `비문학 · ${v.field || "기타"}`;
+  const meta = lit ? (v.author || "") : [v.exam, v.items && `${v.items}번`].filter(Boolean).join(" · ");
   const url = `https://www.youtube.com/shorts/${v.id}`;
   return `<a class="card" href="${url}" target="_blank" rel="noopener">
     <div class="thumb"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg"
-      onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${v.id}/hqdefault.jpg'"></div>
-    <div class="body"><span class="tag ${esc(tag)}">${esc(tag)}</span>
-      <p class="t">${esc(v.title)}</p><p class="m">${esc(meta)}</p></div></a>`;
+      onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${v.id}/hqdefault.jpg'">${isNew(v.date) ? '<span class="new">NEW</span>' : ""}</div>
+    <span class="tag">${esc(tag)}</span>
+    <p class="t">${esc(v.title)}</p>${lit && v.question ? `<p class="qn">${esc(v.question)}</p>` : ""}
+    <p class="m">${esc(meta)}</p></a>`;
 }
 
 function render() {
@@ -137,7 +161,7 @@ function render() {
     (state.type === "all" || v.type === state.type) &&
     (!state.sub || !key || v[key] === state.sub) &&
     (!state.exam || v.exam === state.exam) &&
-    (!q || [v.title, v.author, v.work, v.exam, v.field, v.era, v.type].join(" ").toLowerCase().includes(q)));
+    (!q || [v.title, v.author, v.work, v.exam, v.field, v.era, v.type, v.question].join(" ").toLowerCase().includes(q)));
   drawSubs();
   $("#count").textContent = `${list.length}편`;
   if (!list.length) { $("#list").innerHTML = '<p class="empty">조건에 맞는 영상이 없어요.</p>'; return; }

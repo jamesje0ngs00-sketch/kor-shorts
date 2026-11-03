@@ -8,7 +8,34 @@
     "복덕방": "현대",
     "만세전": "현대"
   },
-  "zLUC8RAoCGw": { "type": "문학", "work": "강로전", "title": "강로전", "hidden": true },
-  "kOXh-YaFYSg": { "type": "문학", "work": "복덕방", "author": "이태준", "title": "복덕방" },
-  "VUBExpz0hco": { "type": "비문학", "field": "경제", "title": "레버리지 ETF의 함정", "hidden": true }
+  "_q": {
+    "운영전": "궁녀에게 사랑은 왜 ‘죄’가 되었을까?",
+    "비 오는 날이면 가리봉동에 가야 한다": "비 오는 날, 임 씨는 왜 ‘가리봉동’에 가야 할까?",
+    "태평천하": "그는 왜 이 시대를 ‘태평천하’라 했을까?",
+    "복덕방": "노인들은 왜 ‘복덕방’에 모였을까?",
+    "만복사저포기": "산 사람과 죽은 이의 사랑, 왜 ‘전기’ 소설일까?",
+    "만세전": "왜 그는 조선을 ‘무덤’이라 불렀을까?"
+  },
+  "zLUC8RAoCGw": {
+    "type": "문학",
+    "work": "강로전",
+    "title": "강로전",
+    "hidden": true
+  },
+  "kOXh-YaFYSg": {
+    "type": "문학",
+    "work": "복덕방",
+    "author": "이태준",
+    "title": "복덕방",
+    "hidden": true
+  },
+  "VUBExpz0hco": {
+    "type": "비문학",
+    "field": "경제",
+    "title": "레버리지 ETF의 함정",
+    "hidden": true
+  },
+  "utDTsIRqaKs": {
+    "author": "작자 미상"
+  }
 }
