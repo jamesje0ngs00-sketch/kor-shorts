@@ -10,7 +10,9 @@ COMMON = {"국어", "비문학", "문학", "수능", "모의고사", "모의평�
 
 def fetch():
     out = subprocess.run([sys.executable, "-m", "yt_dlp", "--flat-playlist", "--print", "%(id)s\t%(title)s", CHANNEL],
-                         capture_output=True, text=True, encoding="utf-8", check=True).stdout
+                         capture_output=True, text=True, encoding="utf-8", errors="replace")
+    if out.returncode: sys.exit("yt-dlp 실패: " + out.stderr.strip()[-800:])
+    out = out.stdout
     return [l.split("\t", 1) for l in out.splitlines() if "\t" in l]
 
 def classify(vid, title):
