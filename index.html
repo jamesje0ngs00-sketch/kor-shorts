@@ -62,9 +62,6 @@
 
   .count { color: var(--sub); font-size: 14px; margin: 18px 0 8px; }
   main { padding-bottom: 20px; }
-  .group { margin-top: 26px; }
-  .group h2 { font-size: 18px; font-weight: 900; margin: 0 0 12px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
-  .group h2 span { color: var(--sub); font-weight: 600; font-size: 14px; }
 
   /* 카드: 테두리 없이 표지를 크게 */
   .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 14px; }
@@ -202,18 +199,7 @@ function render() {
   $("#count").textContent = `${list.length}편`;
   if (!list.length) { $("#list").innerHTML = '<p class="empty">조건에 맞는 영상이 없어요.</p>'; return; }
   list.sort(SORTS.find((o) => o.v === state.sort).f);
-  // 시험순은 같은 시험·문항끼리 묶어 제목 줄을 단다
-  if (state.sort === "exam") {
-    const groups = new Map();
-    list.forEach((v) => { const k = v.exam ? `${v.exam}|${v.items || ""}` : "기타"; (groups.get(k) || groups.set(k, []).get(k)).push(v); });
-    $("#list").innerHTML = [...groups].map(([k, vs]) => {
-      const [exam, items] = k.split("|");
-      const head = k === "기타" ? "그 밖의 영상" : `${esc(exam)} <span>${esc(items ? items + "번" : "")} · ${vs.length}편</span>`;
-      return `<section class="group"><h2>${head}</h2><div class="grid">${vs.map(card).join("")}</div></section>`;
-    }).join("");
-  } else {
-    $("#list").innerHTML = `<div class="grid">${list.map(card).join("")}</div>`;
-  }
+  $("#list").innerHTML = `<div class="grid">${list.map(card).join("")}</div>`;
 }
 
 document.querySelectorAll(".tabs button").forEach((b) => b.onclick = () => {
