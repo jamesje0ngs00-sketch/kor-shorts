@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>국어 쇼츠 모음</title>
+<title>국어, 2분이면?!</title>
 <meta name="description" content="문학 작품과 수능·모의고사 비문학 지문을 짧은 영상으로 정리한 모음">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
@@ -21,17 +21,23 @@
     letter-spacing: -0.01em; }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
 
-  /* 머리: 채널 표지처럼 남색 띠 + 굵은 제목 */
-  header { background: var(--navy); color: #fff; }
-  header .wrap { padding-top: 34px; padding-bottom: 30px; }
-  .kicker { display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: .04em; color: #fff; background: var(--red);
-    padding: 4px 10px; border-radius: 6px; }
-  h1 { margin: 12px 0 0; font-size: clamp(34px, 8vw, 60px); font-weight: 900; letter-spacing: -0.04em; line-height: 1.05; }
+  /* 머리: 종이 바탕 + 큰 제목 + 최근 표지 3장 */
+  header { overflow: hidden; border-bottom: 1px solid var(--line); }
+  header .wrap { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; padding-top: 40px; padding-bottom: 36px; }
+  h1 { margin: 0; font-size: clamp(44px, 11vw, 88px); font-weight: 900; letter-spacing: -0.05em; line-height: 1; word-break: keep-all; }
   h1 b { color: var(--red); }
-  .lead { margin: 12px 0 0; color: #c9cfdc; font-size: 15px; line-height: 1.55; max-width: 560px; word-break: keep-all; }
-  .go { display: inline-block; margin-top: 16px; color: #fff; text-decoration: none; font-weight: 700; font-size: 14px;
-    border: 1.5px solid rgba(255,255,255,.5); padding: 8px 14px; border-radius: 999px; }
-  .go:hover { background: rgba(255,255,255,.1); }
+  .lead { margin: 16px 0 0; color: var(--sub); font-size: 16px; line-height: 1.55; max-width: 460px; word-break: keep-all; }
+  .go { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; color: #fff; background: var(--red); text-decoration: none;
+    font-weight: 800; font-size: 15px; padding: 11px 18px; border-radius: 999px; }
+  .go:hover { filter: brightness(1.08); }
+  .go svg { width: 18px; height: 18px; }
+  .fan { position: relative; width: 330px; height: 300px; }
+  .fan img { position: absolute; top: 10px; width: 150px; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(0,0,0,.22); background: var(--chip); transform: scale(1); }
+  .fan img:nth-child(1) { left: 0; transform: rotate(-9deg); top: 30px; }
+  .fan img:nth-child(2) { left: 90px; z-index: 2; }
+  .fan img:nth-child(3) { left: 180px; transform: rotate(9deg); top: 30px; }
+  @media (max-width: 720px) { header .wrap { grid-template-columns: 1fr; padding-top: 30px; padding-bottom: 28px; } .fan { display: none; } }
 
   /* 거르는 줄 */
   .bar { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 14px 0 12px; border-bottom: 1px solid var(--line); }
@@ -67,7 +73,7 @@
   .thumb { position: relative; aspect-ratio: 9 / 16; background: var(--chip); border-radius: 14px; overflow: hidden;
     box-shadow: 0 6px 18px rgba(24,33,58,.18); transition: transform .18s ease, box-shadow .18s ease; }
   .card:hover .thumb { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(24,33,58,.26); }
-  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.04); }
   .new { position: absolute; top: 10px; left: 10px; background: var(--red); color: #fff; font-size: 12px; font-weight: 900;
     letter-spacing: .06em; padding: 4px 8px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,.25); }
   .tag { display: block; margin-top: 11px; font-size: 13px; font-weight: 800; color: var(--red); }
@@ -83,10 +89,12 @@
 <body>
 <header>
   <div class="wrap">
-    <span class="kicker">수능 국어 · 쇼츠</span>
-    <h1>국어 <b>쇼츠</b> 모음</h1>
-    <p class="lead">문학 작품과 수능·모의고사 비문학 지문을 2분 안팎의 영상으로 정리했어요. 표지를 누르면 유튜브에서 볼 수 있어요.</p>
-    <a class="go" href="https://www.youtube.com/@블랙락-u2v/shorts" target="_blank" rel="noopener">유튜브 채널 바로가기 →</a>
+    <div>
+      <h1>국어,<br><b>2분</b>이면?!</h1>
+      <p class="lead">문학 작품과 수능·모의고사 비문학 지문을 2분 안팎의 영상으로 풀었어요. 표지를 누르면 유튜브에서 볼 수 있어요.</p>
+      <a class="go" href="https://www.youtube.com/@블랙락-u2v/shorts" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>유튜브 채널에서 보기</a>
+    </div>
+    <div class="fan" id="fan" aria-hidden="true"></div>
   </div>
 </header>
 
@@ -188,6 +196,8 @@ $("#fields").onclick = (e) => { const c = e.target.closest(".chip"); if (!c) ret
 $("#exam").onchange = (e) => { state.exam = e.target.value; render(); };
 $("#sort").onchange = (e) => { state.sort = e.target.value; render(); };
 $("#q").oninput = (e) => { state.q = e.target.value; render(); };
+const thumb = (id) => `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+$("#fan").innerHTML = V.slice(0, 3).reverse().map((v) => `<img alt="" src="${thumb(v.id)}">`).join("");
 render();
 </script>
 </body>
