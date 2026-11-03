@@ -133,7 +133,7 @@ $("#n-non").textContent = V.filter((v) => v.type === "비문학").length;
 
 // 갈래별 하위 버튼: 문학 = 현대·고전, 비문학 = 분야
 const SUBS = {
-  "문학": { key: "era", all: "전체", items: ["현대", "고전"] },
+  "문학": { key: "era", all: "전체", items: ["현대", "고전"], label: (x) => x + " 문학" },
   "비문학": { key: "field", all: "전체", items: [...new Set(V.filter((v) => v.field).map((v) => v.field))] },
 };
 function drawSubs() {
@@ -142,7 +142,7 @@ function drawSubs() {
   $("#sortrow").style.display = state.type === "비문학" ? "" : "none";
   if (!s) return;
   $("#fields").innerHTML = `<button class="chip" data-sub="" aria-pressed="${!state.sub}">${s.all}</button>` +
-    s.items.map((f) => `<button class="chip" data-sub="${esc(f)}" aria-pressed="${state.sub === f}">${esc(f)}</button>`).join("");
+    s.items.map((f) => `<button class="chip" data-sub="${esc(f)}" aria-pressed="${state.sub === f}">${esc(s.label ? s.label(f) : f)}</button>`).join("");
 }
 
 // 시험 목록 (최근 것 먼저)
@@ -158,7 +158,7 @@ function card(v) {
     <div class="thumb"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg"
       onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${v.id}/hqdefault.jpg'">${isNew(v.date) ? '<span class="new">NEW</span>' : ""}</div>
     <span class="tag">${esc(tag)}</span>
-    <p class="t">${esc(v.title)}</p>${lit && v.question ? `<p class="qn">${esc(v.question)}</p>` : ""}
+    <p class="t">${esc(v.title)}</p>
     <p class="m">${esc(meta)}</p></a>`;
 }
 
