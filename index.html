@@ -58,6 +58,7 @@
     border-radius: 10px; padding: 9px 12px; min-width: 0; }
   input[type=search] { flex: 1 1 200px; }
   select { flex: 0 1 260px; }
+  #sort { flex: 0 0 auto; font-weight: 700; }
 
   .count { color: var(--sub); font-size: 14px; margin: 18px 0 8px; }
   main { padding-bottom: 20px; }
@@ -106,8 +107,8 @@
       <button data-type="비문학" aria-pressed="false">비문학<small id="n-non"></small></button>
     </div>
     <div class="row chips" id="fields" role="group" aria-label="세부 분류"></div>
-    <div class="row" id="sortrow"><select id="sort" aria-label="정렬"><option value="order">올린 순서</option><option value="group">지문별로 묶기</option></select></div>
     <div class="row">
+      <select id="sort" aria-label="정렬"></select>
       <select id="exam" aria-label="시험"></select>
       <input id="q" type="search" placeholder="제목·작가·시험으로 찾기" aria-label="검색">
     </div>
@@ -139,14 +140,41 @@ const SUBS = {
 function drawSubs() {
   const s = SUBS[state.type];
   $("#fields").style.display = s ? "" : "none";
-  $("#sortrow").style.display = state.type === "비문학" ? "" : "none";
+  $("#exam").style.display = state.type === "문학" ? "none" : "";
+  const opts = SORTS.filter((o) => o.on.includes(state.type));
+  if (!opts.some((o) => o.v === state.sort)) state.sort = "new";
+  $("#sort").innerHTML = opts.map((o) => `<option value="${o.v}"${o.v === state.sort ? " selected" : ""}>${o.t}</option>`).join("");
   if (!s) return;
   $("#fields").innerHTML = `<button class="chip" data-sub="" aria-pressed="${!state.sub}">${s.all}</button>` +
     s.items.map((f) => `<button class="chip" data-sub="${esc(f)}" aria-pressed="${state.sub === f}">${esc(s.label ? s.label(f) : f)}</button>`).join("");
 }
 
-// 시험 목록 (최근 것 먼저)
-const exams = [...new Set(V.filter((v) => v.exam).map((v) => v.exam))];
+// 시험이 치러진 시기. 모의평가·수능·EBS 교재는 이듬해 학년도로 이름이 붙으므로 한 해를 당긴다.
+// 수능특강 = 1~2월 무렵(3월 학평 앞), 수능완성 = 7월 학평과 9월 모평 사이
+function examTime(e) {
+  if (!e) return -1;
+  const y = +(e.match(/(\d{4})/) || [])[1] || 0, m = +(e.match(/(\d{1,2})월/) || [])[1] || 0;
+  const g = +(e.match(/고(\d)/) || [])[1] || 3, r = +(e.match(/(\d+)회/) || [])[1] || 0;
+  let t;
+  if (/수능완성/.test(e)) t = (y - 1) * 100 + 8;
+  else if (/수능특강/.test(e)) t = (y - 1) * 100 + 2;
+  else if (/모의평가/.test(e)) t = (y - 1) * 100 + m;
+  else if (/수능/.test(e)) t = (y - 1) * 100 + 11;
+  else t = y * 100 + m;
+  return t + g / 10 - r / 1000;   // 같은 시기면 고3 → 고2, 1회 → 2회
+}
+const ko = (a, b) => String(a || "").localeCompare(String(b || ""), "ko");
+const firstItem = (v) => parseInt(v.items) || 0;
+const SORTS = [
+  { v: "new", t: "최신순", on: ["all", "문학", "비문학"], f: (a, b) => a.order - b.order },
+  { v: "old", t: "오래된순", on: ["all", "문학", "비문학"], f: (a, b) => b.order - a.order },
+  { v: "abc", t: "가나다순", on: ["all", "문학", "비문학"], f: (a, b) => ko(a.title, b.title) },
+  { v: "author", t: "작가순", on: ["문학"], f: (a, b) => (!a.author || a.author === "작자 미상") - (!b.author || b.author === "작자 미상") || ko(a.author, b.author) || ko(a.title, b.title) },
+  { v: "exam", t: "시험순", on: ["비문학"], f: (a, b) => examTime(b.exam) - examTime(a.exam) || ko(a.exam, b.exam) || firstItem(a) - firstItem(b) || a.order - b.order },
+];
+
+// 시험 목록 (치러진 시기 최근 것 먼저)
+const exams = [...new Set(V.filter((v) => v.exam).map((v) => v.exam))].sort((a, b) => examTime(b) - examTime(a));
 $("#exam").innerHTML = '<option value="">시험 전체</option>' + exams.map((e) => `<option>${esc(e)}</option>`).join("");
 
 function card(v) {
@@ -173,8 +201,9 @@ function render() {
   drawSubs();
   $("#count").textContent = `${list.length}편`;
   if (!list.length) { $("#list").innerHTML = '<p class="empty">조건에 맞는 영상이 없어요.</p>'; return; }
-  // 기본은 올린 순서(최신 먼저). 비문학에서 '지문별로 묶기'를 고르면 같은 시험·문항끼리 묶는다
-  if (state.type === "비문학" && state.sort === "group") {
+  list.sort(SORTS.find((o) => o.v === state.sort).f);
+  // 시험순은 같은 시험·문항끼리 묶어 제목 줄을 단다
+  if (state.sort === "exam") {
     const groups = new Map();
     list.forEach((v) => { const k = v.exam ? `${v.exam}|${v.items || ""}` : "기타"; (groups.get(k) || groups.set(k, []).get(k)).push(v); });
     $("#list").innerHTML = [...groups].map(([k, vs]) => {
