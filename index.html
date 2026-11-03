@@ -82,19 +82,6 @@
   .m { margin: 4px 0 0; font-size: 13px; color: var(--sub); line-height: 1.4; word-break: keep-all; }
   .empty { padding: 40px 0; text-align: center; color: var(--sub); }
   footer { margin: 30px 0 40px; color: var(--sub); font-size: 13px; text-align: center; }
-  /* 영상 창: 카드를 누르면 사이트 안에서 재생 (재생은 보는 사람이 직접 눌러야 조회수로 잡힌다) */
-  dialog { border: 0; padding: 0; background: transparent; max-width: none; max-height: none; overflow: visible; }
-  dialog::backdrop { background: rgba(10,12,18,.82); }
-  .player { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-  .player .box { position: relative; height: min(78vh, 760px); aspect-ratio: 9 / 16; max-width: 92vw; background: #000;
-    border-radius: 14px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,.5); }
-  .player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-  .player .acts { display: flex; gap: 8px; }
-  .player .acts a, .player .acts button { font: inherit; font-size: 15px; font-weight: 800; border: 0; cursor: pointer; text-decoration: none;
-    padding: 10px 16px; border-radius: 999px; }
-  .player .yt { background: var(--red); color: #fff; }
-  .player .x { background: rgba(255,255,255,.16); color: #fff; }
-  @media (max-width: 600px) { .player .box { height: auto; width: 92vw; } }
 </style>
 </head>
 <body>
@@ -128,13 +115,6 @@
   <main id="list"></main>
   <footer>새 영상은 올라오는 대로 추가됩니다.</footer>
 </div>
-
-<dialog id="pop" aria-label="영상 보기">
-  <div class="player">
-    <div class="box" id="pop-box"></div>
-    <div class="acts"><a class="yt" id="pop-yt" target="_blank" rel="noopener">유튜브에서 보기 · 좋아요·구독</a><button class="x" id="pop-x">닫기 ✕</button></div>
-  </div>
-</dialog>
 
 <script src="videos.js"></script>
 <script>
@@ -199,7 +179,7 @@ function card(v) {
   const tag = lit ? `${v.era ? v.era + " " : ""}문학` : `비문학 · ${v.field || "기타"}`;
   const meta = lit ? (v.author || "") : [v.exam, v.items && `${v.items}번`].filter(Boolean).join(" · ");
   const url = `https://www.youtube.com/shorts/${v.id}`;
-  return `<a class="card" data-id="${v.id}" href="${url}" target="_blank" rel="noopener">
+  return `<a class="card" href="${url}" target="_blank" rel="noopener">
     <div class="thumb"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg"
       onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${v.id}/hqdefault.jpg'">${isNew(v.date) ? '<span class="new">NEW</span>' : ""}</div>
     <span class="tag">${esc(tag)}</span>
@@ -233,21 +213,6 @@ $("#sort").onchange = (e) => { state.sort = e.target.value; render(); };
 $("#q").oninput = (e) => { state.q = e.target.value; render(); };
 const thumb = (id) => `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 $("#fan").innerHTML = V.slice(0, 3).reverse().map((v) => `<img alt="" src="${thumb(v.id)}">`).join("");
-// 카드: 그냥 누르면 영상 창, Ctrl·가운데 클릭은 원래대로 유튜브 새 탭
-const pop = $("#pop");
-$("#list").onclick = (e) => {
-  const a = e.target.closest(".card");
-  if (!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button || !pop.showModal) return;
-  e.preventDefault();
-  $("#pop-box").innerHTML = `<iframe src="https://www.youtube.com/embed/${a.dataset.id}?rel=0&playsinline=1" title="영상"
-    allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
-  $("#pop-yt").href = a.href;
-  pop.showModal();
-};
-const closePop = () => pop.close();
-$("#pop-x").onclick = closePop;
-pop.onclick = (e) => { if (e.target === pop || e.target.classList.contains("player")) closePop(); };
-pop.onclose = () => { $("#pop-box").innerHTML = ""; };   // 닫으면 재생도 멈춘다
 render();
 </script>
 </body>
