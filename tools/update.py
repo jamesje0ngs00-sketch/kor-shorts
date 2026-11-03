@@ -43,10 +43,14 @@ def main():
     for i, (vid, title) in enumerate(fetch()):
         v = classify(vid, title)
         v.update(over.get(vid, {}))
+        if v["type"] == "문학":
+            v["era"] = over.get("_era", {}).get(v["work"])   # 현대 / 고전 (작품 이름으로)
         v["order"] = i            # 0 = 가장 최근
         vids.append(v)
     miss = [v["raw"] for v in vids if not v["type"]]
     if miss: print("분류 안 된 영상(overrides.json에 추가):", *miss, sep="\n  ")
+    noera = [v["work"] for v in vids if v["type"] == "문학" and not v.get("era")]
+    if noera: print("현대/고전이 정해지지 않은 작품(overrides.json의 _era에 추가):", *noera, sep="\n  ")
     (ROOT / "videos.js").write_text("window.VIDEOS = " + json.dumps(vids, ensure_ascii=False, indent=1) + ";\n", encoding="utf-8")
     print(len(vids), "편 →", ROOT / "videos.js")
 

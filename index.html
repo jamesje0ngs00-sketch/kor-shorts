@@ -55,7 +55,7 @@
   .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .body { padding: 10px 11px 12px; }
   .tag { display: inline-block; font-size: 12px; font-weight: 800; padding: 3px 8px; border-radius: 6px; color: #fff; background: var(--sub); }
-  .tag.문학 { background: var(--lit); } .tag.과학 { background: var(--sci); } .tag.경제 { background: var(--eco); } .tag.사회 { background: var(--soc); }
+  .tag.문학, .tag.현대 { background: var(--lit); } .tag.고전 { background: #8a5a3c; } .tag.과학 { background: var(--sci); } .tag.경제 { background: var(--eco); } .tag.사회 { background: var(--soc); }
   .t { margin: 7px 0 4px; font-size: 15px; font-weight: 700; line-height: 1.35;
     display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
   .m { font-size: 13px; color: var(--sub); line-height: 1.4; word-break: keep-all; }
@@ -77,7 +77,8 @@
       <button data-type="문학" aria-pressed="false">문학<small id="n-lit"></small></button>
       <button data-type="비문학" aria-pressed="false">비문학<small id="n-non"></small></button>
     </div>
-    <div class="row" id="fields" role="group" aria-label="분야"></div>
+    <div class="row" id="fields" role="group" aria-label="세부 분류"></div>
+    <div class="row" id="sortrow"><select id="sort" aria-label="정렬"><option value="order">올린 순서</option><option value="group">지문별로 묶기</option></select></div>
     <div class="row">
       <select id="exam" aria-label="시험"></select>
       <input id="q" type="search" placeholder="제목·작가·시험으로 찾기" aria-label="검색">
@@ -91,28 +92,36 @@
 
 <script src="videos.js"></script>
 <script>
-const V = (window.VIDEOS || []).slice().sort((a, b) => a.order - b.order);
+const V = (window.VIDEOS || []).filter((v) => !v.hidden).sort((a, b) => a.order - b.order);
 const $ = (s) => document.querySelector(s);
-const state = { type: "all", field: null, exam: "", q: "" };
+const state = { type: "all", sub: null, exam: "", q: "", sort: "order" };
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 $("#n-all").textContent = V.length;
 $("#n-lit").textContent = V.filter((v) => v.type === "문학").length;
 $("#n-non").textContent = V.filter((v) => v.type === "비문학").length;
 
-// 분야 칩 (비문학)
-const fields = [...new Set(V.filter((v) => v.field).map((v) => v.field))];
-$("#fields").innerHTML = '<button class="chip" data-field="" aria-pressed="true">분야 전체</button>' +
-  fields.map((f) => `<button class="chip" data-field="${esc(f)}" aria-pressed="false">${esc(f)}</button>`).join("");
+// 갈래별 하위 버튼: 문학 = 현대·고전, 비문학 = 분야
+const SUBS = {
+  "문학": { key: "era", all: "현대·고전 전체", items: ["현대", "고전"] },
+  "비문학": { key: "field", all: "분야 전체", items: [...new Set(V.filter((v) => v.field).map((v) => v.field))] },
+};
+function drawSubs() {
+  const s = SUBS[state.type];
+  $("#fields").style.display = s ? "" : "none";
+  $("#sortrow").style.display = state.type === "비문학" ? "" : "none";
+  if (!s) return;
+  $("#fields").innerHTML = `<button class="chip" data-sub="" aria-pressed="${!state.sub}">${s.all}</button>` +
+    s.items.map((f) => `<button class="chip" data-sub="${esc(f)}" aria-pressed="${state.sub === f}">${esc(f)}</button>`).join("");
+}
 
 // 시험 목록 (최근 것 먼저)
 const exams = [...new Set(V.filter((v) => v.exam).map((v) => v.exam))];
 $("#exam").innerHTML = '<option value="">시험 전체</option>' + exams.map((e) => `<option>${esc(e)}</option>`).join("");
 
 function card(v) {
-  const tag = v.type === "문학" ? "문학" : (v.field || "비문학");
-  const meta = v.type === "문학" ? (v.author ? `${v.author} 작` : "작품 해설")
-    : [v.exam, v.items && `${v.items}번`].filter(Boolean).join(" · ");
+  const tag = v.type === "문학" ? (v.era || "문학") : (v.field || "비문학");
+  const meta = v.type === "문학" ? (v.author || "") : [v.exam, v.items && `${v.items}번`].filter(Boolean).join(" · ");
   const url = `https://www.youtube.com/shorts/${v.id}`;
   return `<a class="card" href="${url}" target="_blank" rel="noopener">
     <div class="thumb"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg"
@@ -123,16 +132,17 @@ function card(v) {
 
 function render() {
   const q = state.q.trim().toLowerCase();
+  const key = SUBS[state.type] && SUBS[state.type].key;
   const list = V.filter((v) =>
     (state.type === "all" || v.type === state.type) &&
-    (!state.field || v.field === state.field) &&
+    (!state.sub || !key || v[key] === state.sub) &&
     (!state.exam || v.exam === state.exam) &&
-    (!q || [v.title, v.author, v.work, v.exam, v.field, v.type].join(" ").toLowerCase().includes(q)));
-  $("#fields").style.display = state.type === "문학" ? "none" : "";
+    (!q || [v.title, v.author, v.work, v.exam, v.field, v.era, v.type].join(" ").toLowerCase().includes(q)));
+  drawSubs();
   $("#count").textContent = `${list.length}편`;
   if (!list.length) { $("#list").innerHTML = '<p class="empty">조건에 맞는 영상이 없어요.</p>'; return; }
-  // 비문학은 같은 지문(시험·문항)끼리 묶어서 보여 준다
-  if (state.type === "비문학") {
+  // 기본은 올린 순서(최신 먼저). 비문학에서 '지문별로 묶기'를 고르면 같은 시험·문항끼리 묶는다
+  if (state.type === "비문학" && state.sort === "group") {
     const groups = new Map();
     list.forEach((v) => { const k = v.exam ? `${v.exam}|${v.items || ""}` : "기타"; (groups.get(k) || groups.set(k, []).get(k)).push(v); });
     $("#list").innerHTML = [...groups].map(([k, vs]) => {
@@ -146,14 +156,13 @@ function render() {
 }
 
 document.querySelectorAll(".tabs button").forEach((b) => b.onclick = () => {
-  state.type = b.dataset.type;
+  state.type = b.dataset.type; state.sub = null;
   document.querySelectorAll(".tabs button").forEach((x) => x.setAttribute("aria-pressed", x === b));
-  if (state.type === "문학") { state.field = null; setChip(""); }
   render();
 });
-function setChip(f) { document.querySelectorAll("#fields .chip").forEach((c) => c.setAttribute("aria-pressed", c.dataset.field === f)); }
-$("#fields").onclick = (e) => { const c = e.target.closest(".chip"); if (!c) return; state.field = c.dataset.field || null; setChip(c.dataset.field); render(); };
+$("#fields").onclick = (e) => { const c = e.target.closest(".chip"); if (!c) return; state.sub = c.dataset.sub || null; render(); };
 $("#exam").onchange = (e) => { state.exam = e.target.value; render(); };
+$("#sort").onchange = (e) => { state.sort = e.target.value; render(); };
 $("#q").oninput = (e) => { state.q = e.target.value; render(); };
 render();
 </script>

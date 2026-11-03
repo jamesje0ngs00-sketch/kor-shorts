@@ -1,5 +1,14 @@
 {
-  "zLUC8RAoCGw": { "type": "문학", "work": "강로전", "title": "강로전" },
+  "_era": {
+    "운영전": "고전",
+    "만복사저포기": "고전",
+    "강로전": "고전",
+    "비 오는 날이면 가리봉동에 가야 한다": "현대",
+    "태평천하": "현대",
+    "복덕방": "현대",
+    "만세전": "현대"
+  },
+  "zLUC8RAoCGw": { "type": "문학", "work": "강로전", "title": "강로전", "hidden": true },
   "kOXh-YaFYSg": { "type": "문학", "work": "복덕방", "author": "이태준", "title": "복덕방" },
-  "VUBExpz0hco": { "type": "비문학", "field": "경제", "title": "레버리지 ETF의 함정" }
+  "VUBExpz0hco": { "type": "비문학", "field": "경제", "title": "레버리지 ETF의 함정", "hidden": true }
 }

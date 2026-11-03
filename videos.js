@@ -23,6 +23,7 @@ window.VIDEOS = [
   "items": null,
   "author": null,
   "work": "운영전",
+  "era": "고전",
   "order": 1
  },
  {
@@ -36,6 +37,7 @@ window.VIDEOS = [
   "items": null,
   "author": "양귀자",
   "work": "비 오는 날이면 가리봉동에 가야 한다",
+  "era": "현대",
   "order": 2
  },
  {
@@ -49,6 +51,7 @@ window.VIDEOS = [
   "items": null,
   "author": "채만식",
   "work": "태평천하",
+  "era": "현대",
   "order": 3
  },
  {
@@ -75,6 +78,7 @@ window.VIDEOS = [
   "items": null,
   "author": "이태준",
   "work": "복덕방",
+  "era": "현대",
   "order": 5
  },
  {
@@ -244,6 +248,7 @@ window.VIDEOS = [
   "items": null,
   "author": "김시습",
   "work": "만복사저포기",
+  "era": "고전",
   "order": 18
  },
  {
@@ -257,6 +262,7 @@ window.VIDEOS = [
   "items": null,
   "author": "염상섭",
   "work": "만세전",
+  "era": "현대",
   "order": 19
  },
  {
@@ -270,6 +276,7 @@ window.VIDEOS = [
   "items": null,
   "author": "이태준",
   "work": "복덕방",
+  "era": "현대",
   "order": 20
  },
  {
@@ -283,6 +290,8 @@ window.VIDEOS = [
   "items": null,
   "author": null,
   "work": "강로전",
+  "hidden": true,
+  "era": "고전",
   "order": 21
  },
  {
@@ -296,6 +305,7 @@ window.VIDEOS = [
   "items": null,
   "author": null,
   "work": null,
+  "hidden": true,
   "order": 22
  }
 ];
