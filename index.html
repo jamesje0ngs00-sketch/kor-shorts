@@ -115,8 +115,8 @@ function card(v) {
     : [v.exam, v.items && `${v.items}번`].filter(Boolean).join(" · ");
   const url = `https://www.youtube.com/shorts/${v.id}`;
   return `<a class="card" href="${url}" target="_blank" rel="noopener">
-    <div class="thumb"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/${v.id}/oar2.jpg"
-      onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${v.id}/hq720.jpg'"></div>
+    <div class="thumb"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg"
+      onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${v.id}/hqdefault.jpg'"></div>
     <div class="body"><span class="tag ${esc(tag)}">${esc(tag)}</span>
       <p class="t">${esc(v.title)}</p><p class="m">${esc(meta)}</p></div></a>`;
 }
