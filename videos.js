@@ -1,5 +1,21 @@
 window.VIDEOS = [
  {
+  "id": "DizleRGCvYc",
+  "raw": "조성기, 「창선감의록」",
+  "type": "문학",
+  "title": "창선감의록",
+  "field": null,
+  "source": null,
+  "exam": null,
+  "items": null,
+  "author": "조성기",
+  "work": "창선감의록",
+  "era": null,
+  "question": null,
+  "date": "2026-11-25",
+  "order": 0
+ },
+ {
   "id": "t9bSnGsSEJs",
   "raw": "아랍어 보던 시절, 기억나세요?｜수능 제2외국어 순위 변화",
   "type": null,
@@ -11,7 +27,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-11-12",
-  "order": 0
+  "order": 1
  },
  {
   "id": "En-seeHE_cw",
@@ -27,7 +43,7 @@ window.VIDEOS = [
   "era": null,
   "question": null,
   "date": "2026-11-10",
-  "order": 1
+  "order": 2
  },
  {
   "id": "WNOM2LGDK4Q",
@@ -43,7 +59,7 @@ window.VIDEOS = [
   "era": null,
   "question": null,
   "date": "2026-11-04",
-  "order": 2
+  "order": 3
  },
  {
   "id": "AzgvfqYUCrE",
@@ -59,7 +75,7 @@ window.VIDEOS = [
   "era": "현대",
   "question": null,
   "date": "2026-11-03",
-  "order": 3
+  "order": 4
  },
  {
   "id": "cQq8PIY0U-w",
@@ -73,7 +89,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-11-03",
-  "order": 4
+  "order": 5
  },
  {
   "id": "QCqu4rJJOjA",
@@ -87,7 +103,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-11-03",
-  "order": 5
+  "order": 6
  },
  {
   "id": "utDTsIRqaKs",
@@ -103,7 +119,7 @@ window.VIDEOS = [
   "era": "고전",
   "question": "궁녀에게 사랑은 왜 ‘죄’가 되었을까?",
   "date": "2026-11-02",
-  "order": 6
+  "order": 7
  },
  {
   "id": "Tw4Zc7_bwpE",
@@ -119,7 +135,7 @@ window.VIDEOS = [
   "era": "현대",
   "question": "비 오는 날, 임 씨는 왜 ‘가리봉동’에 가야 할까?",
   "date": "2026-10-29",
-  "order": 7
+  "order": 8
  },
  {
   "id": "cmUxBRCG3Z4",
@@ -135,7 +151,7 @@ window.VIDEOS = [
   "era": "현대",
   "question": "그는 왜 이 시대를 ‘태평천하’라 했을까?",
   "date": "2026-10-24",
-  "order": 8
+  "order": 9
  },
  {
   "id": "TcRlHCwzcYY",
@@ -149,7 +165,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-10-22",
-  "order": 9
+  "order": 10
  },
  {
   "id": "C9d0M3sd4rc",
@@ -165,7 +181,7 @@ window.VIDEOS = [
   "era": "현대",
   "question": "노인들은 왜 ‘복덕방’에 모였을까?",
   "date": "2026-10-22",
-  "order": 10
+  "order": 11
  },
  {
   "id": "oxoU-mZkmaw",
@@ -179,7 +195,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-10-21",
-  "order": 11
+  "order": 12
  },
  {
   "id": "yyNu8QSziqs",
@@ -193,7 +209,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-10-21",
-  "order": 12
+  "order": 13
  },
  {
   "id": "23KeKT2mAsw",
@@ -207,7 +223,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-10-21",
-  "order": 13
+  "order": 14
  },
  {
   "id": "gQ6XdnwXW_4",
@@ -221,7 +237,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-10-21",
-  "order": 14
+  "order": 15
  },
  {
   "id": "PweR9-IDNU4",
@@ -235,7 +251,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-10-21",
-  "order": 15
+  "order": 16
  },
  {
   "id": "tuBqZbLOG4s",
@@ -249,7 +265,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-10-20",
-  "order": 16
+  "order": 17
  },
  {
   "id": "dx5XUfIEE9Q",
@@ -263,7 +279,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-10-20",
-  "order": 17
+  "order": 18
  },
  {
   "id": "T3iKwJLTFfk",
@@ -277,7 +293,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-10-20",
-  "order": 18
+  "order": 19
  },
  {
   "id": "C0uDh_sw9To",
@@ -291,7 +307,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-10-20",
-  "order": 19
+  "order": 20
  },
  {
   "id": "HrgMzTf0EgQ",
@@ -305,7 +321,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-10-19",
-  "order": 20
+  "order": 21
  },
  {
   "id": "SQrdFf-0vyE",
@@ -319,7 +335,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-10-19",
-  "order": 21
+  "order": 22
  },
  {
   "id": "JdR1LpO97Us",
@@ -333,7 +349,7 @@ window.VIDEOS = [
   "author": null,
   "work": null,
   "date": "2026-10-19",
-  "order": 22
+  "order": 23
  },
  {
   "id": "DYkFu9zNgIA",
@@ -349,7 +365,7 @@ window.VIDEOS = [
   "era": "고전",
   "question": "산 사람과 죽은 이의 사랑, 왜 ‘전기’ 소설일까?",
   "date": "2026-10-16",
-  "order": 23
+  "order": 24
  },
  {
   "id": "yHfPCgnsQXg",
@@ -365,7 +381,7 @@ window.VIDEOS = [
   "era": "현대",
   "question": "왜 그는 조선을 ‘무덤’이라 불렀을까?",
   "date": "2026-10-16",
-  "order": 24
+  "order": 25
  },
  {
   "id": "kOXh-YaFYSg",
@@ -382,7 +398,7 @@ window.VIDEOS = [
   "era": "현대",
   "question": "노인들은 왜 ‘복덕방’에 모였을까?",
   "date": "2026-10-14",
-  "order": 25
+  "order": 26
  },
  {
   "id": "zLUC8RAoCGw",
@@ -399,7 +415,7 @@ window.VIDEOS = [
   "era": "고전",
   "question": null,
   "date": "2026-07-20",
-  "order": 26
+  "order": 27
  },
  {
   "id": "VUBExpz0hco",
@@ -414,6 +430,6 @@ window.VIDEOS = [
   "work": null,
   "hidden": true,
   "date": "2026-07-14",
-  "order": 27
+  "order": 28
  }
 ];
